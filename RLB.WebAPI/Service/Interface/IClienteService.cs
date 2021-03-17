@@ -1,5 +1,4 @@
 ﻿using App.RLB.WebAPI.DTO;
-using App.RLB.WebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

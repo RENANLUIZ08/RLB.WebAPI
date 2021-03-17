@@ -1,5 +1,4 @@
-﻿using App.Data.Repositories;
-using App.RLB.WebAPI.Data.Repositories;
+﻿using App.RLB.WebAPI.Data.Repositories;
 using App.RLB.WebAPI.DTO;
 using App.RLB.WebAPI.Models;
 using App.RLB.WebAPI.Services.Interface;

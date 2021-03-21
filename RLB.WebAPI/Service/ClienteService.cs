@@ -14,8 +14,7 @@ namespace App.RLB.WebAPI.Services
     {
         protected readonly IRepositoryBase<Cliente> clienteRepository;
 
-        public ClienteService(IRepositoryBase<Cliente> clienteRepository,
-           IRepositoryBase<PFisica> pfisicaRepository, IRepositoryBase<PJuridica> pjuridicaRepository)
+        public ClienteService(IRepositoryBase<Cliente> clienteRepository)
         {
             this.clienteRepository = clienteRepository;
         }

@@ -1,16 +1,16 @@
+using App.Data.Repositories;
+using App.RLB.WebAPI.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using App.RLB.WebAPI.Data;
+using App.RLB.WebAPI.Models;
+using App.RLB.WebAPI.Services.Interface;
+using App.RLB.WebAPI.Services;
 
 namespace RLB.WebAPI
 {
@@ -26,11 +26,25 @@ namespace RLB.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddDbContext<ApplicationDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("Connectionstring")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RLB.WebAPI", Version = "v1" });
+            });
+            services.AddScoped<ClienteService>(sp => {
+                // Build your Context Options
+                DbContextOptionsBuilder<ApplicationDbContext> optsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+                optsBuilder.UseSqlServer(Configuration.GetConnectionString("hml"));
+                // Build your context (using the options from the builder)
+                ApplicationDbContext ctx = new ApplicationDbContext(optsBuilder.Options);
+                // Build your unit of work (and pass in the context)
+                RepositoryBaseEF<Cliente> uow = new RepositoryBaseEF<Cliente>(ctx);
+                // Build your service (and pass in the unit of work)
+                ClienteService svc = new ClienteService(uow);
+                // Return your Svc
+                return svc;
             });
         }
 

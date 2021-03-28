@@ -16,30 +16,14 @@ namespace App.RLB.WebAPI.DTO
 
         }
 
-        public ClienteDTO(Guid id, PFisica pFisica = null, PJuridica pJuridica = null)
+        public static ClienteDTO MontarDTO(Cliente model)
         {
-            Id = id;
-            if (pFisica != null)
+            return new ClienteDTO()
             {
-                Fisica = new PFisicaDTO().MontarDTO(pFisica);
-            }
-            if (pJuridica != null)
-            {
-                Juridica = new PJuridicaDTO().MontarDTO(pJuridica);
-            }
-        }
-
-        public ClienteDTO MontarDTO(Guid id, PFisica pFisica, PJuridica pJuridica)
-        {
-            ClienteDTO clienteDTO = null;
-            if(pFisica != null && pJuridica != null)
-            { clienteDTO = new ClienteDTO(id, pFisica, pJuridica); }
-            else if(pFisica != null)
-            { clienteDTO = new ClienteDTO(id, pFisica: pFisica); }
-            else if (pJuridica != null)
-            { clienteDTO = new ClienteDTO(id, pJuridica: pJuridica);  }
-
-            return clienteDTO;
+                Id = model.Id,
+                Fisica = model.Fisica != null? PFisicaDTO.MontarDTO(model.Fisica) : null,
+                Juridica = model.Juridica != null? PJuridicaDTO.MontarDTO(model.Juridica): null
+            };
         }
     }
 }

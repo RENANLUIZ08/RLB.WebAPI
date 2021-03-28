@@ -52,7 +52,7 @@ namespace App.RLB.WebAPI.DTO
             Enderecos = enderecos.Select(e => new EnderecoDTO().MontarDTO(e));
         }
 
-        public PFisicaDTO MontarDTO(PFisica pFisica)
+        public static PFisicaDTO MontarDTO(PFisica pFisica)
             => new PFisicaDTO(pFisica.Id, pFisica.Nome, pFisica.Cpf, pFisica.Rg, pFisica.DataNascimento, pFisica.Contatos, pFisica.Enderecos);
     }
 
@@ -79,7 +79,7 @@ namespace App.RLB.WebAPI.DTO
             Proprietario = proprietario;
         }
 
-        public PJuridicaDTO MontarDTO(PJuridica pJuridica)
+        public static PJuridicaDTO MontarDTO(PJuridica pJuridica)
             => new PJuridicaDTO(pJuridica.Id, pJuridica.RazaoSocial, pJuridica.Cnpj, pJuridica.Contatos, pJuridica.Enderecos, pJuridica.ie, pJuridica.im, pJuridica.proprietario);
 
     }

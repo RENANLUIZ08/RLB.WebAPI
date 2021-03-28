@@ -1,4 +1,4 @@
-﻿using App.RLB.WebAPI.Data.Repositories;
+﻿using EF.Infrastructure.Data.Repositories;
 using App.RLB.WebAPI.DTO;
 using App.RLB.WebAPI.Models;
 using App.RLB.WebAPI.Services.Interface;
@@ -28,7 +28,7 @@ namespace App.RLB.WebAPI.Services
                 if (cliente.Juridica != null)
                 { ValidarClienteExistente(cliente.Juridica.Cnpj, Guid.Empty); }
 
-                clienteRepository.InsertDb(new Cliente(cliente));
+                cliente = ClienteDTO.MontarDTO(clienteRepository.InsertDb(new Cliente(cliente)));
                 clienteRepository.CommitWork();
                 return Task.FromResult(cliente);
             }
@@ -44,7 +44,7 @@ namespace App.RLB.WebAPI.Services
                 else if (cliente.Juridica != null)
                 { ValidarClienteExistente(cliente.Juridica.Cnpj, cliente.Id); }
 
-                clienteRepository.UpdateDb(new Cliente(cliente));
+                cliente = ClienteDTO.MontarDTO(clienteRepository.UpdateDb(new Cliente(cliente)));
                 clienteRepository.CommitWork();
                 return Task.FromResult(cliente);
             }
@@ -66,7 +66,7 @@ namespace App.RLB.WebAPI.Services
         private void ValidarClienteExistente(string documento, Guid? Idcliente)
         {
             Expression<Func<Cliente, bool>> filtroCliente = (fp) => fp.Fisica.Cpf == documento || fp.Juridica.Cnpj == documento;
-            var cliente = clienteRepository.GetWhere(filtroCliente);
+            var cliente = clienteRepository.GetFirst(filtroCliente);
             if (Idcliente.HasValue? Guid.Empty.Equals(Idcliente): false)
             {//novo cadastro
                 if (cliente != null)
@@ -95,7 +95,7 @@ namespace App.RLB.WebAPI.Services
         }
 
         public Task<List<ClienteDTO>> SelectMany()
-            => Task.FromResult(clienteRepository.All.Select(c => new ClienteDTO().MontarDTO(c.Id, c.Fisica, c.Juridica)).ToList());
+            => Task.FromResult(clienteRepository.All.Select(c => ClienteDTO.MontarDTO(c)).ToList());
 
         public Task<ClienteDTO> FindKey(Guid id)
         {
@@ -105,7 +105,7 @@ namespace App.RLB.WebAPI.Services
             if(cliente == null)
             { throw new Exception("Não foi encontrado nenhum dado pelo valor Id informado."); }
 
-            return Task.FromResult(new ClienteDTO().MontarDTO(cliente.Id, cliente.Fisica, cliente.Juridica));
+            return Task.FromResult(ClienteDTO.MontarDTO(cliente));
         }
 
         //validar permissoes...

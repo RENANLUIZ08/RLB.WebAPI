@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace App.RLB.WebAPI.Data.Repositories
+namespace EF.Infrastructure.Data.Repositories
 {
     public interface IRepositoryBase<Entidade> where Entidade : class 
     {
@@ -16,9 +16,9 @@ namespace App.RLB.WebAPI.Data.Repositories
         void CommitWork();
         IQueryable<Entidade> AsNoTraking();
         IQueryable<Entidade> AsQueryable();
-        Entidade GetOne(Guid Id);
+        Entidade GetOne(object parameters);
         IEnumerable<Entidade> GetMany();
-        Entidade GetWhere(Expression<Func<Entidade, bool>> where);
-
+        IQueryable<Entidade> GetWhere(Expression<Func<Entidade, bool>> where);
+        Entidade GetFirst(Expression<Func<Entidade, bool>> where);
     }
 }

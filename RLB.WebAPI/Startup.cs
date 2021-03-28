@@ -1,5 +1,3 @@
-using App.Data.Repositories;
-using App.RLB.WebAPI.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,14 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using App.RLB.WebAPI.Data;
-using App.RLB.WebAPI.Models;
-using App.RLB.WebAPI.Services.Interface;
 using App.RLB.WebAPI.Services;
-using App.RLB.WebAPI.Service;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
+using App.RLB.WebAPI.Data;
+using EF.Infrastructure.Data.Repositories;
+using App.RLB.WebAPI.Models;
 
 namespace RLB.WebAPI
 {
@@ -47,24 +44,24 @@ namespace RLB.WebAPI
                 return new ClienteService(new RepositoryBaseEF<Cliente>(adc));
             });
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = "JwtBearer";//portador
-                options.DefaultChallengeScheme = "JwtBearer";
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = "JwtBearer";//portador
+            //    options.DefaultChallengeScheme = "JwtBearer";
 
-            }).AddJwtBearer("JwtBearer", options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("rlb-webapi-authentication-validation")),
-                    ClockSkew = TimeSpan.FromMinutes(5),
-                    ValidIssuer = "App.RLB.WebAPI",
-                    ValidAudience = "Swagger"
-                };
-            });
+            //}).AddJwtBearer("JwtBearer", options =>
+            //{
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("rlb-webapi-authentication-validation")),
+            //        ClockSkew = TimeSpan.FromMinutes(5),
+            //        ValidIssuer = "App.RLB.WebAPI",
+            //        ValidAudience = "Swagger"
+            //    };
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

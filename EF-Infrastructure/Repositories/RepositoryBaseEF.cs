@@ -1,12 +1,10 @@
-﻿using App.RLB.WebAPI.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
-namespace App.Data.Repositories
+namespace EF.Infrastructure.Data.Repositories
 {
     public class RepositoryBaseEF<Entidade> : IDisposable, IRepositoryBase<Entidade> where Entidade : class
     {
@@ -69,13 +67,17 @@ namespace App.Data.Repositories
             return Context.Set<Entidade>();
         }
 
-        public Entidade GetOne(Guid Id)
+        public Entidade GetOne(object param)
         {
-            return Context.Set<Entidade>().Find(Id);
+            return Context.Set<Entidade>().Find(param);
         }
-        public Entidade GetWhere(Expression<Func<Entidade, bool>> where)
+        public IQueryable<Entidade> GetWhere(Expression<Func<Entidade, bool>> where)
         {
-            return Context.Set<Entidade>().Find(where);
+            return Context.Set<Entidade>().Where(where);
+        }
+        public Entidade GetFirst(Expression<Func<Entidade, bool>> where)
+        {
+            return Context.Set<Entidade>().Where(where).FirstOrDefault();
         }
     }
 }

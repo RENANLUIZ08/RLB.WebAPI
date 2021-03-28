@@ -12,6 +12,9 @@ using App.RLB.WebAPI.Models;
 using App.RLB.WebAPI.Services.Interface;
 using App.RLB.WebAPI.Services;
 using App.RLB.WebAPI.Service;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
 
 namespace RLB.WebAPI
 {
@@ -42,6 +45,25 @@ namespace RLB.WebAPI
                     new DbContextOptionsBuilder<ApplicationDbContext>()
                     .UseSqlServer(Configuration.GetConnectionString("hml")).Options);
                 return new ClienteService(new RepositoryBaseEF<Cliente>(adc));
+            });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";//portador
+                options.DefaultChallengeScheme = "JwtBearer";
+
+            }).AddJwtBearer("JwtBearer", options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("rlb-webapi-authentication-validation")),
+                    ClockSkew = TimeSpan.FromMinutes(5),
+                    ValidIssuer = "App.RLB.WebAPI",
+                    ValidAudience = "Swagger"
+                };
             });
         }
 

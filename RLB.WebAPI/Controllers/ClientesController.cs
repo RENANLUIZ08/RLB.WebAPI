@@ -1,14 +1,11 @@
 ﻿using App.RLB.WebAPI.DTO;
-using App.RLB.WebAPI.Service.Interface;
 using App.RLB.WebAPI.Services;
-using App.RLB.WebAPI.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace App.RLB.WebAPI.Models
 {
@@ -22,67 +19,81 @@ namespace App.RLB.WebAPI.Models
             clienteService = _clienteService;
         }
 
-        //[HttpPost]
-        //public IActionResult Insert([FromBody] ClienteDTO vm)
-        //{
-        //    if(vm != null)
-        //    {
-        //        clienteService.Insert(vm);
-        //        var uri = Url.Action("Recuperar", new { id = vm.Id });
-        //        return Created(uri, vm);
-        //    }
+        [HttpPost]
+        [SwaggerOperation(Summary = "Cadastro de Clientes", Description = "EndPoint de Cadastro de Clientes")]
+        [SwaggerResponse(statusCode: StatusCodes.Status201Created, description: "Cliente Inserido com sucesso.")]
+        [SwaggerResponse(statusCode: StatusCodes.Status400BadRequest, description: "Verifique os dados enviados na requisicao e tente novamente.")]
+        public IActionResult Insert([FromBody] ClienteDTO vm)
+        {
+            if (vm != null)
+            {
+                clienteService.Insert(vm);
+                var uri = Url.Action("Recuperar", new { id = vm.Id });
+                return Created(uri, vm);
+            }
 
-        //    return BadRequest();
-        //}
+            return BadRequest();
+        }
 
-        //[HttpPut]
-        //public IActionResult Update([FromBody] ClienteDTO vm)
-        //{
-        //    if (vm != null)
-        //    {
-        //        clienteService.Edit(vm);
-        //        return Ok();
-        //    }
+        [Authorize]
+        [HttpPut]
+        [SwaggerOperation(Summary = "Atualizacao de Clientes", Description = "EndPoint de Atualizacao de Clientes")]
+        [SwaggerResponse(statusCode: StatusCodes.Status200OK, description: "Cliente atualizado com sucesso.")]
+        [SwaggerResponse(statusCode: StatusCodes.Status400BadRequest, description: "Verifique os dados enviados na requisicao e tente novamente.")]
+        public IActionResult Update([FromBody] ClienteDTO vm)
+        {
+            if (vm != null)
+            {
+                clienteService.Edit(vm);
+                return Ok();
+            }
 
-        //    return BadRequest();
-        //}
+            return BadRequest();
+        }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(Guid? Id)
-        //{
-        //    if (!Guid.Empty.Equals(Id.Value) || Id != null)
-        //    {
-        //        clienteService.Delete(Id.Value);
-        //        return Ok();
-        //    }
-        //    return BadRequest(ModelState);
+        [Authorize]
+        [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Exclusao de Clientes", Description = "EndPoint de Exclusao de Clientes")]
+        [SwaggerResponse(statusCode: StatusCodes.Status200OK, description: "Cliente Excluido com Sucesso.")]
+        [SwaggerResponse(statusCode: StatusCodes.Status400BadRequest, description: "Verifique os dados enviados na requisicao e tente novamente.")]
+        public IActionResult Delete(Guid? Id)
+        {
+            if (!Guid.Empty.Equals(Id.Value) || Id != null)
+            {
+                clienteService.Delete(Id.Value);
+                return Ok();
+            }
+            return BadRequest(ModelState);
 
-        //}
+        }
 
-        //[HttpGet("{id}")]
-        //public IActionResult Edit(Guid? Id)
-        //{
-        //    if (Id.HasValue? !Guid.Empty.Equals(Id.Value) || Id != null: false)
-        //    {
-        //        var cliente = clienteService.FindKey(Id.Value);
-        //        if(cliente == null)
-        //        { return NotFound(); }
-        //        return Ok(cliente);
-        //    }
-        //    return BadRequest(ModelState);
+        [Authorize]
+        [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Selecionar cliente Pelo ::Id::", Description = "EndPoint de selecionar cliente pelo ID de Clientes")]
+        [SwaggerResponse(statusCode: StatusCodes.Status400BadRequest, description: "Verifique os dados enviados na requisicao e tente novamente.")]
+        public IActionResult Edit(Guid? Id)
+        {
+            if (Id.HasValue ? !Guid.Empty.Equals(Id.Value) || Id != null : false)
+            {
+                var cliente = clienteService.FindKey(Id.Value);
+                if (cliente == null)
+                { return NotFound(); }
+                return Ok(cliente);
+            }
+            return BadRequest(ModelState);
 
-        //}
+        }
 
+        [Authorize]
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation(Summary = "Selecionar todos clientes", Description = "EndPoint de selecionar todos os Clientes")]
+        [SwaggerResponse(statusCode: StatusCodes.Status400BadRequest, description: "Ocorreu um problema de selecionar os dados, tente novamente.")]
         public IActionResult SelectAll()
         {
-            return Ok("Batatinha...");
-            //var clientes = clienteService.SelectMany();
-            //if(clientes.Result.Count() > 1)
-            //{ return Ok(clientes.ToString()); }
-            //return NotFound();
+            var clientes = clienteService.SelectMany();
+            if (clientes.Result.Count() > 1)
+            { return Ok(clientes.ToString()); }
+            return NotFound();
         }
 
     }

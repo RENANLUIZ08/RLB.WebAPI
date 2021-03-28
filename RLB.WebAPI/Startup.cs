@@ -11,6 +11,7 @@ using App.RLB.WebAPI.Data;
 using App.RLB.WebAPI.Models;
 using App.RLB.WebAPI.Services.Interface;
 using App.RLB.WebAPI.Services;
+using App.RLB.WebAPI.Service;
 
 namespace RLB.WebAPI
 {
@@ -32,19 +33,18 @@ namespace RLB.WebAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RLB.WebAPI", Version = "v1" });
+                c.EnableAnnotations();
             });
-            services.AddScoped<ClienteService>(sp => {
-                // Build your Context Options
-                DbContextOptionsBuilder<ApplicationDbContext> optsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-                optsBuilder.UseSqlServer(Configuration.GetConnectionString("hml"));
-                // Build your context (using the options from the builder)
-                ApplicationDbContext ctx = new ApplicationDbContext(optsBuilder.Options);
-                // Build your unit of work (and pass in the context)
-                RepositoryBaseEF<Cliente> uow = new RepositoryBaseEF<Cliente>(ctx);
-                // Build your service (and pass in the unit of work)
-                ClienteService svc = new ClienteService(uow);
-                // Return your Svc
-                return svc;
+            //services.AddScoped(sp =>
+            //{
+            //    return new ClienteService(sp.GetService<IRepositoryBase<Cliente>>());
+            //});
+            services.AddScoped(sp =>
+            {
+                var adc = new ApplicationDbContext(
+                    new DbContextOptionsBuilder<ApplicationDbContext>()
+                    .UseSqlServer(Configuration.GetConnectionString("hml")).Options);
+                return new ClienteService(new RepositoryBaseEF<Cliente>(adc));
             });
         }
 

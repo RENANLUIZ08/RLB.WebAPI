@@ -28,17 +28,14 @@ namespace RLB.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("Connectionstring")));
+                        options.UseSqlServer(Configuration.GetConnectionString("hml")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RLB.WebAPI", Version = "v1" });
                 c.EnableAnnotations();
+                
             });
-            //services.AddScoped(sp =>
-            //{
-            //    return new ClienteService(sp.GetService<IRepositoryBase<Cliente>>());
-            //});
             services.AddScoped(sp =>
             {
                 var adc = new ApplicationDbContext(

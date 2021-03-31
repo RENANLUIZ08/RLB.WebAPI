@@ -1,4 +1,5 @@
 ﻿using App.RLB.Application.DTO;
+using App.RLB.Application.Interfaces;
 using App.RLB.Domain.Entity;
 using App.RLB.Domain.Interface.Repositories;
 using AutoMapper;
@@ -9,7 +10,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.RLB.Application.Interfaces
+namespace App.RLB.Application.Services
 {
     public class ServiceAppBase<Entidade, EntidadeDTO> : IAppBase<Entidade, EntidadeDTO> where Entidade : EntityBase where EntidadeDTO : DTOBase
     {

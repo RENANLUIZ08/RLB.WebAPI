@@ -3,11 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
-namespace EF_Infrastructure.ServicesCollection.JwtSwagger.Document
+namespace App.Infra.IoC
 {
-    public static class SwaggerServiceExtensions
+    public static class SwaggerDocumentation
     {
-        public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
+        public static void AddSwaggerDoc(IServiceCollection services)
         {
             //swagger
             services.AddSwaggerGen(c =>
@@ -24,11 +24,9 @@ namespace EF_Infrastructure.ServicesCollection.JwtSwagger.Document
                 });
 
             });
-
-            return services;
         }
 
-        public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
+        public static void UseSwaggerDoc(IApplicationBuilder app)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -36,7 +34,6 @@ namespace EF_Infrastructure.ServicesCollection.JwtSwagger.Document
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "RLB.WebAPI v1");
                 c.DocExpansion(DocExpansion.None);
             });
-            return app; 
         }
     }
 }

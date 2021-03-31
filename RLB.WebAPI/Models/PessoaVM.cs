@@ -18,6 +18,14 @@ namespace App.RLB.WebAPI.Models
         public virtual IEnumerable<Contato> Contatos { get; set; }
         public virtual IEnumerable<Endereco> Enderecos { get; set; }
 
+        [ForeignKey("PFisica")]
+        public Guid? PfisicaId { get; set; }
+        public virtual PFisica PFisica { get; set; }
+
+        [ForeignKey("PJuridica")]
+        public Guid? PjuridicaId { get; set; }
+        public virtual PJuridica PJuridica { get; set; }
+
         public Pessoa()
         {
 
@@ -97,8 +105,10 @@ namespace App.RLB.WebAPI.Models
         }
     }
     [Table("Cadastro.PessoaFisica")]
-    public class PFisica : Pessoa
+    public class PFisica
     {
+        [HiddenInput]
+        public Guid Id { get; set; }
         [MaxLength(100)]
         [Required(ErrorMessage = "Informar nome completo para o cadastro")]
         public string Nome { get; set; }
@@ -108,6 +118,9 @@ namespace App.RLB.WebAPI.Models
         public string Rg { get; set; }
         [IdadeMinima]
         public DateTime DataNascimento { get; set; }
+        [ForeignKey("Pessoa")]
+        public Guid PessoaId { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
 
         public PFisica()
         {
@@ -121,22 +134,28 @@ namespace App.RLB.WebAPI.Models
             Cpf = dto.Cpf;
             Rg = dto.Rg;
             DataNascimento = dto.DataNascimento;
+            PessoaId = dto.Pessoa.Id;
+            Pessoa = new Pessoa(dto.Pessoa);
 
-            Contatos = dto.Contatos.Select(c => new Contato(c));
-            Enderecos = dto.Enderecos.Select(e => new Endereco(e));
         }
     }
     [Table("Cadastro.PessoaJuridica")]
-    public class PJuridica : Pessoa
+    public class PJuridica
     {
+        [HiddenInput]
+        public Guid Id { get; set; }
         [MaxLength(100)]
         [Required(ErrorMessage = "Informar a Razão Social para o cadastro")]
         public string RazaoSocial { get; set; }
         [ValidarCNPJ]
         public string Cnpj { get; set; }
-        public string ie { get; set; }
-        public string im { get; set; }
-        public string proprietario { get; set; }
+        public string Ie { get; set; }
+        public string Im { get; set; }
+        public string Proprietario { get; set; }
+
+        [ForeignKey("Pessoa")]
+        public Guid PessoaId { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
 
         public PJuridica()
         {
@@ -148,12 +167,12 @@ namespace App.RLB.WebAPI.Models
             Id = dto.Id;
             RazaoSocial = dto.RazaoSocial;
             Cnpj = dto.RazaoSocial;
-            ie = dto.Ie;
-            im = dto.Im;
-            proprietario = dto.Proprietario;
+            Ie = dto.Ie;
+            Im = dto.Im;
+            Proprietario = dto.Proprietario;
+            PessoaId = dto.Pessoa.Id;
+            Pessoa = new Pessoa(dto.Pessoa);
 
-            Contatos = dto.Contatos.Select(c => new Contato(c));
-            Enderecos = dto.Enderecos.Select(e => new Endereco(e));
         }
     }
 }

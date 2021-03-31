@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace App.RLB.Application
+namespace App.RLB.Application.DTO
 {
     public class PessoaDTO : DTOBase
     {

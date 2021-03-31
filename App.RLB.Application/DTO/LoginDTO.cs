@@ -1,4 +1,4 @@
-﻿namespace App.RLB.Application
+﻿namespace App.RLB.Application.DTO
 {
     public class LoginDTO
     {

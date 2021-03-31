@@ -1,7 +1,7 @@
 ﻿using App.RLB.Application.DTO;
 using System;
 
-namespace App.RLB.Application
+namespace App.RLB.Application.DTO
 {
     public class ClienteDTO : DTOBase
     {

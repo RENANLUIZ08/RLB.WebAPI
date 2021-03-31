@@ -1,4 +1,4 @@
-﻿using App.RLB.Domain.Entity;
+﻿using App.RLB.Application.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

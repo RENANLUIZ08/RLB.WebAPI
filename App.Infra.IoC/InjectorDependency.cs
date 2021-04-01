@@ -5,11 +5,13 @@ using App.RLB.Domain.Interface.Services;
 using App.RLB.Domain.Services;
 using App.RLB.Infra.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.RLB.Application;
 
 namespace App.Infra.IoC
 {
@@ -20,6 +22,7 @@ namespace App.Infra.IoC
             #region Application
             services.AddScoped(typeof(IAppBase<,>), typeof(ServiceAppBase<,>));
             services.AddScoped<IClienteApp, ClienteApp>();
+            services.AddAutoMapper(x => x.AddProfile(new MappingEntity()));
             #endregion
 
             #region Domain

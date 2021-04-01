@@ -1,4 +1,5 @@
 ﻿using App.RLB.Application.DTO;
+using App.RLB.Domain.Entity;
 using System;
 
 namespace App.RLB.Application.DTO
@@ -12,13 +13,13 @@ namespace App.RLB.Application.DTO
 
         }
 
-        public static ClienteDTO MontarDTO(Cliente model)
+        public static ClienteDTO MontarDTO(Client model)
         {
             return new ClienteDTO()
             {
                 Id = model.Id,
-                Fisica = model.Fisica != null? PFisicaDTO.MontarDTO(model.Fisica) : null,
-                Juridica = model.Juridica != null? PJuridicaDTO.MontarDTO(model.Juridica): null
+                Fisica = model.Fisica != null ? PFisicaDTO.MontarDTO(model.Fisica) : null,
+                Juridica = model.Juridica != null ? PJuridicaDTO.MontarDTO(model.Juridica) : null
             };
         }
     }

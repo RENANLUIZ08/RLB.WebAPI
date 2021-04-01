@@ -27,7 +27,7 @@ namespace RLB.WebAPI
 
             InjectorDependency.AddDependency(services);
             SwaggerDocumentation.AddSwaggerDoc(services);
-
+            
             // services.AddAutoMapper(x => x.AddProfile(new MappingEntidade()));
             services.AddControllers();            
         }
@@ -45,7 +45,7 @@ namespace RLB.WebAPI
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

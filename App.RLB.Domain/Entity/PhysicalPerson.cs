@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static App.Domain.Services.DataAnottationValidacoes;
+using static App.RLB.Domain.Entity.DataAnottationsValidations.DataAnottationValidacoes;
 
 namespace App.RLB.Domain.Entity
 {

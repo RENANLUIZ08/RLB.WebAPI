@@ -1,6 +1,7 @@
 ﻿using App.RLB.Domain.Entity;
 using App.RLB.Domain.Interface.Repositories;
 using App.RLB.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,51 +20,61 @@ namespace App.RLB.Infra.Data.Repository
             this.contexto = contexto;
         }
 
-        public IEnumerable<Entidade> All => contexto.Set<Entidade>().all;
+        public IEnumerable<Entidade> All => contexto.Set<Entidade>().AsQueryable();
 
         public Entidade Add(Entidade entity)
         {
-            throw new NotImplementedException();
+            contexto.InitialTransaction();
+            var entityFormad = contexto.Set<Entidade>().Add(entity).Entity;
+            contexto.SendChanges();
+            return (entityFormad);
         }
-
-        public IQueryable<Entidade> AsNoTraking()
+        public void Remove(Entidade entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Entidade> AsQueryable()
-        {
-            throw new NotImplementedException();
+            contexto.InitialTransaction();
+            contexto.Set<Entidade>().Remove(entity);
+            contexto.SendChanges();
         }
 
         public Entidade Edit(Entidade entity)
         {
-            throw new NotImplementedException();
+            contexto.InitialTransaction();
+            var entityFormad = contexto.Set<Entidade>().Update(entity).Entity;
+            contexto.SaveChanges();
+            return entityFormad;
+        }
+        public IQueryable<Entidade> AsNoTraking()
+        {
+            return contexto.Set<Entidade>().AsNoTracking();
         }
 
-        public IQueryable<Entidade> Get(Expression<Func<Entidade, bool>> predicate)
+        public IQueryable<Entidade> AsQueryable()
         {
-            throw new NotImplementedException();
+            return contexto.Set<Entidade>().AsQueryable();
+        }
+
+
+
+        public IQueryable<Entidade> Get(Expression<Func<Entidade, bool>> where)
+        {
+            return contexto.Set<Entidade>().AsQueryable().Where(where);
         }
 
         public Entidade GetByKey(params object[] key)
         {
-            throw new NotImplementedException();
+            return contexto.Set<Entidade>().Find(key);
         }
 
-        public Entidade GetFirst(Expression<Func<Entidade, bool>> predicate)
+        public Entidade GetFirst(Expression<Func<Entidade, bool>> where)
         {
-            throw new NotImplementedException();
+            return contexto.Set<Entidade>().AsQueryable().Where(where).FirstOrDefault();
         }
 
         public IEnumerable<Entidade> GetMany()
         {
-            throw new NotImplementedException();
+            return contexto.Set<Entidade>().ToList();
         }
 
-        public void Remove(Entidade entity)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

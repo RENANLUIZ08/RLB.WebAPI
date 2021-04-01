@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.RLB.Domain.Entity

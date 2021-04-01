@@ -1,6 +1,7 @@
 ﻿using App.RLB.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Linq;
 
 namespace App.RLB.Infra.Data.Context
@@ -32,12 +33,32 @@ namespace App.RLB.Infra.Data.Context
             return Transaction;
         }
 
+        private void Save()
+        {
+            try
+            {
+                ChangeTracker.DetectChanges();
+                SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                RollBackTransaction();
+                throw new Exception(ex.Message);
+            }
+        }
+
         private void RollBackTransaction()
         {
             if(!(Transaction == null))
             { Transaction.Rollback(); }
         }
-        
+
+        public void SendChanges()
+        {
+            Save();
+            CommitWork();
+        }
+
         private void CommitWork()
         {
             if(Transaction != null)

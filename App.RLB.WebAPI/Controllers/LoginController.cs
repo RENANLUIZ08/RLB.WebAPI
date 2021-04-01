@@ -1,11 +1,4 @@
-﻿using App.RLB.WebAPI.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace App.RLB.WebAPI.Controllers
 {
@@ -13,11 +6,6 @@ namespace App.RLB.WebAPI.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly LoginService loginService;
-        public LoginController(LoginService _loginService)
-        {
-            loginService = _loginService;
-        }
         [HttpPost]
         public IActionResult Token()
         {

@@ -1,4 +1,5 @@
 ﻿using App.RLB.Application.DTO;
+using App.RLB.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,15 @@ namespace App.RLB.Application.DTO
         {
 
         }
-        public PessoaDTO(Guid id, IEnumerable<Contato> contatos, IEnumerable<Endereco> enderecos)
+        public PessoaDTO(Guid id, IEnumerable<Contact> contacts, IEnumerable<Address> address)
         {
             Id = id;
-            Contatos = contatos.Select(c => new ContatoDTO().MontarDTO(c));
-            Enderecos = enderecos.Select(e => new EnderecoDTO().MontarDTO(e));
+            Contatos = contacts.Select(c => ContatoDTO.MontarDTO(c));
+            Enderecos = address.Select(a => EnderecoDTO.MontarDTO(a));
         }
 
-        public PessoaDTO MontarDTO(Pessoa pessoa)
-        => new PessoaDTO(pessoa.Id, pessoa.Contatos, pessoa.Enderecos);
+        public static PessoaDTO MontarDTO(Person person)
+        => new PessoaDTO(person.Id, person.Contacts, person.Addresses);
 
     }
 
@@ -39,18 +40,18 @@ namespace App.RLB.Application.DTO
 
         }
 
-        public PFisicaDTO(Guid id, string nome, string cpf, string rg, DateTime datanascimento, Pessoa pessoa)
+        public PFisicaDTO(Guid id, string nome, string cpf, string rg, DateTime datanascimento, Person person)
         {
             Id = id;
             Nome = nome;
             Cpf = cpf;
             Rg = rg;
             DataNascimento = datanascimento;
-            Pessoa = new PessoaDTO().MontarDTO(pessoa);
+            Pessoa = PessoaDTO.MontarDTO(person);
         }
 
-        public static PFisicaDTO MontarDTO(PFisica pFisica)
-            => new PFisicaDTO(pFisica.Id, pFisica.Nome, pFisica.Cpf, pFisica.Rg, pFisica.DataNascimento, pFisica.Pessoa);
+        public static PFisicaDTO MontarDTO(PhysicalPerson physical)
+            => new PFisicaDTO(physical.Id, physical.Nome, physical.Cpf, physical.Rg, physical.DataNascimento, physical.Pessoa);
     }
 
     public class PJuridicaDTO : DTOBase
@@ -66,7 +67,7 @@ namespace App.RLB.Application.DTO
 
         }
 
-        public PJuridicaDTO(Guid id, string razaosocial, string cnpj, Pessoa pessoa, string ie = "", string im = "", string proprietario = "")
+        public PJuridicaDTO(Guid id, string razaosocial, string cnpj, Person person, string ie = "", string im = "", string proprietario = "")
         {
             Id = id;
             RazaoSocial = razaosocial;
@@ -74,17 +75,16 @@ namespace App.RLB.Application.DTO
             Ie = ie;
             Im = im;
             Proprietario = proprietario;
-            Pessoa = new PessoaDTO().MontarDTO(pessoa);
+            Pessoa = PessoaDTO.MontarDTO(person);
         }
 
-        public static PJuridicaDTO MontarDTO(PJuridica pJuridica)
-            => new PJuridicaDTO(pJuridica.Id, pJuridica.RazaoSocial, pJuridica.Cnpj, pJuridica.Pessoa, pJuridica.Ie, pJuridica.Im, pJuridica.Proprietario);
+        public static PJuridicaDTO MontarDTO(LegalPerson legal)
+            => new PJuridicaDTO(legal.Id, legal.RazaoSocial, legal.Cnpj, legal.Pessoa, legal.Ie, legal.Im, legal.Proprietario);
 
     }
 
     public class EnderecoDTO : DTOBase
     {
-        public Guid Id { get; set; }
         public string Logradouro { get; set; }
         public string Numero { get; set; }
         public string Complemento { get; set; }
@@ -96,7 +96,7 @@ namespace App.RLB.Application.DTO
         {
 
         }
-        public EnderecoDTO(Guid id, string logradouro, string numero, string complemento, string bairro, string cep, Pessoa pessoa)
+        public EnderecoDTO(Guid id, string logradouro, string numero, string complemento, string bairro, string cep, Person person)
         {
             Id = id;
             Logradouro = logradouro;
@@ -104,17 +104,16 @@ namespace App.RLB.Application.DTO
             Complemento = complemento;
             Bairro = bairro;
             Cep = cep;
-            Pessoa = new PessoaDTO().MontarDTO(pessoa);
+            Pessoa = PessoaDTO.MontarDTO(person);
         }
 
-        public EnderecoDTO MontarDTO(Endereco endereco)
-            => new EnderecoDTO(endereco.Id, endereco.Logradouro, endereco.Numero, endereco.Complemento, endereco.Bairro, endereco.Cep, endereco.Pessoa);
-        
+        public static EnderecoDTO MontarDTO(Address address)
+            => new EnderecoDTO(address.Id, address.Logradouro, address.Numero, address.Complemento, address.Bairro, address.Cep, address.Pessoa);
+
     }
 
     public class ContatoDTO : DTOBase
     {
-        public Guid Id { get; set; }
         public string Telefone { get; set; }
         public string Celular { get; set; }
         public PessoaDTO Pessoa { get; set; }
@@ -123,16 +122,16 @@ namespace App.RLB.Application.DTO
         {
 
         }
-        public ContatoDTO(Guid id, Pessoa pessoa, string telefone = "", string celular = "")
+        public ContatoDTO(Guid id, Person person, string telefone = "", string celular = "")
         {
             Id = id;
             Telefone = telefone;
             Celular = celular;
-            Pessoa = new PessoaDTO().MontarDTO(pessoa);
+            Pessoa = PessoaDTO.MontarDTO(person);
         }
 
-        public ContatoDTO MontarDTO(Contato contato)
-            => new ContatoDTO(contato.Id, contato.Pessoa, contato.Telefone, contato.Celular);
+        public static ContatoDTO MontarDTO(Contact contact)
+            => new ContatoDTO(contact.Id, contact.Pessoa, contact.Telefone, contact.Celular);
 
     }
 }

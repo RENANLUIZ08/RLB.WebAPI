@@ -10,13 +10,13 @@ namespace App.RLB.Domain.Entity
         public virtual IEnumerable<Contact> Contacts { get; set; }
         public virtual IEnumerable<Address> Addresses { get; set; }
 
-        [ForeignKey("PFisica")]
+        [ForeignKey("Physical")]
         public Guid? PfisicaId { get; set; }
-        public virtual PhysicalPerson PFisica { get; set; }
+        public virtual PhysicalPerson Physical { get; set; }
 
-        [ForeignKey("PJuridica")]
+        [ForeignKey("Legal")]
         public Guid? PjuridicaId { get; set; }
-        public virtual LegalPerson PJuridica { get; set; }
+        public virtual LegalPerson Legal { get; set; }
 
     }
 }

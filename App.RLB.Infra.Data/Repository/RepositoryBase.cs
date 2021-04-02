@@ -72,7 +72,8 @@ namespace App.RLB.Infra.Data.Repository
 
         public IEnumerable<Entidade> GetMany()
         {
-            return contexto.Set<Entidade>().ToList();
+            var teste = contexto.Set<Entidade>().ToList();
+            return teste;
         }
 
 

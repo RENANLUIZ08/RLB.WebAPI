@@ -13,17 +13,20 @@ namespace App.RLB.Domain.Services
         {
 
         }
-        private void ValidarClienteExistente(string documento, Guid? Idcliente)
+        public void ValidarClienteExistente(string documento, Guid? Idcliente)
         {
-            Expression<Func<Client, bool>> filtroCliente = (fp) => fp.Fisica.Cpf == documento || fp.Juridica.Cnpj == documento;
+            RepositoryBase
+
+            Expression<Func<Client, bool>> filtroCliente = (fp) => fp.Person.Physical.Cpf == documento || fp.Person.Legal.Cnpj == documento;
             var cliente = repository.GetFirst(filtroCliente);
+            //IRepositoryBase<Client> repository = new  // repository.GetFirst(filtroCliente);
             if (Idcliente.HasValue? Guid.Empty.Equals(Idcliente): false)
             {//novo cadastro
                 if (cliente != null)
                 {//encontrou cliente, verificar se é pessoa juridica ou fisica.
-                    if (cliente.Fisica != null)
+                    if (cliente.Person.Physical != null)
                     { throw new Exception("CPF ja possui cadastro no sistema."); }
-                    else if (cliente.Juridica != null)
+                    else if (cliente.Person.Legal != null)
                     { throw new Exception("CNPJ ja possui cadastro no sistema."); }
                     else
                     {
@@ -36,7 +39,7 @@ namespace App.RLB.Domain.Services
             {//cadastro existente
                 if (cliente != null)
                 {//encontrou cliente, validar se é o mesmo cliente.
-                    if(cliente?.PFisicaId.Value != Idcliente || cliente?.PJuridicaId.Value != Idcliente)
+                    if(cliente.Person.Physical.Id != Idcliente || cliente.Person.Legal.Id != Idcliente)
                     { throw new Exception($"O documento informado {documento} ja possui cadastro."); }
                 }
             }

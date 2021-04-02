@@ -14,7 +14,7 @@ namespace App.Infra.IoC
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RLB.WebAPI", Version = "v1" });
                 c.EnableAnnotations();
-
+                
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Description = "JWT Authorization header using the Berar scheme.",

@@ -10,20 +10,24 @@ namespace App.RLB.Application.DTO
     {
         public IEnumerable<ContatoDTO> Contatos { get; set; }
         public IEnumerable<EnderecoDTO> Enderecos { get; set; }
+        public virtual PFisicaDTO Fisica { get; set; }
+        public virtual PJuridicaDTO Juridica { get; set; }
 
         public PessoaDTO()
         {
 
         }
-        public PessoaDTO(Guid id, IEnumerable<Contact> contacts, IEnumerable<Address> address)
+        public PessoaDTO(Guid id, IEnumerable<Contact> contacts, IEnumerable<Address> address, PhysicalPerson physical, LegalPerson legal)
         {
             Id = id;
             Contatos = contacts.Select(c => ContatoDTO.MontarDTO(c));
             Enderecos = address.Select(a => EnderecoDTO.MontarDTO(a));
+            Fisica = PFisicaDTO.MontarDTO(physical);
+            Juridica = PJuridicaDTO.MontarDTO(legal);
         }
 
         public static PessoaDTO MontarDTO(Person person)
-        => new PessoaDTO(person.Id, person.Contacts, person.Addresses);
+        => new PessoaDTO(person.Id, person.Contacts, person.Addresses, person.Physical, person.Legal);
 
     }
 

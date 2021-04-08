@@ -1,28 +1,24 @@
-﻿using App.RLB.Application.Interfaces;
+﻿using App.RLB.Application;
+using App.RLB.Application.AutoMapper;
+using App.RLB.Application.Interfaces;
 using App.RLB.Application.Services;
+using App.RLB.Domain.Interface;
 using App.RLB.Domain.Interface.Repositories;
 using App.RLB.Domain.Interface.Services;
 using App.RLB.Domain.Services;
 using App.RLB.Infra.Data.Repository;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.RLB.Application;
 
 namespace App.Infra.IoC
 {
-    public class InjectorDependency
+    public class InjectorDependencyConfig
     {
-        public static void AddDependency(IServiceCollection services)
+        public static void AddDependencyInjectionConfig(IServiceCollection services)
         {
             #region Application
             services.AddScoped(typeof(IAppBase<,>), typeof(ServiceAppBase<,>));
             services.AddScoped<IClienteApp, ClienteApp>();
-            services.AddAutoMapper(x => x.AddProfile(new MappingEntity()));
             #endregion
 
             #region Domain

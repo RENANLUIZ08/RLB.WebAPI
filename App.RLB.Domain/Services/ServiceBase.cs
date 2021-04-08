@@ -1,4 +1,5 @@
 ﻿using App.RLB.Domain.Entity;
+using App.RLB.Domain.Interface;
 using App.RLB.Domain.Interface.Repositories;
 using System;
 using System.Collections.Generic;
@@ -28,22 +29,22 @@ namespace App.RLB.Domain.Services
             return repository.AsQueryable();
         }
 
-        public Entidade Insert(Entidade entity)
+        public Entidade Add(Entidade entity)
         {
-            return repository.Add(entity);
+            return repository.Insert(entity);
         }
 
-        public Entidade Update(Entidade entity)
+        public Entidade Edit(Entidade entity)
         {
-            return repository.Edit(entity);
+            return repository.Update(entity);
         }
-        public void Delete(Entidade entity)
+        public void Remove(Entidade entity)
         {
-            repository.Remove(entity);
+            repository.Delete(entity);
         }
-        public IQueryable<Entidade> Get(Expression<Func<Entidade, bool>> where)
+        public IEnumerable<Entidade> GetMany(Expression<Func<Entidade, bool>> where)
         {
-            return repository.Get(where);
+            return repository.GetMany(where);
         }
 
         public Entidade GetByKey(params object[] key)

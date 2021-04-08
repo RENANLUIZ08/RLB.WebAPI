@@ -1,10 +1,9 @@
-﻿using App.RLB.Application.DTO;
-using App.RLB.Domain.Entity;
+﻿using App.RLB.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace App.RLB.Application.DTO
+namespace App.RLB.Domain.Core.Shared.DTO
 {
     public class PessoaDTO : DTOBase
     {
@@ -61,6 +60,7 @@ namespace App.RLB.Application.DTO
     public class PJuridicaDTO : DTOBase
     {
         public string RazaoSocial { get; set; }
+        public string NomeFantasia { get; set; }
         public string Cnpj { get; set; }
         public string Ie { get; set; }
         public string Im { get; set; }
@@ -71,7 +71,7 @@ namespace App.RLB.Application.DTO
 
         }
 
-        public PJuridicaDTO(Guid id, string razaosocial, string cnpj, Person person, string ie = "", string im = "", string proprietario = "")
+        public PJuridicaDTO(Guid id, string razaosocial, string cnpj, Person person, string nomeFantasia, string ie = "", string im = "", string proprietario = "")
         {
             Id = id;
             RazaoSocial = razaosocial;
@@ -79,11 +79,12 @@ namespace App.RLB.Application.DTO
             Ie = ie;
             Im = im;
             Proprietario = proprietario;
+            NomeFantasia = nomeFantasia;
             Pessoa = PessoaDTO.MontarDTO(person);
         }
 
         public static PJuridicaDTO MontarDTO(LegalPerson legal)
-            => new PJuridicaDTO(legal.Id, legal.RazaoSocial, legal.Cnpj, legal.Pessoa, legal.Ie, legal.Im, legal.Proprietario);
+            => new PJuridicaDTO(legal.Id, legal.RazaoSocial, legal.Cnpj, legal.Pessoa, legal.NomeFantasia, legal.Ie, legal.Im, legal.Proprietario);
 
     }
 
@@ -120,22 +121,24 @@ namespace App.RLB.Application.DTO
     {
         public string Telefone { get; set; }
         public string Celular { get; set; }
+        public string Email { get; set; }
         public PessoaDTO Pessoa { get; set; }
 
         public ContatoDTO()
         {
 
         }
-        public ContatoDTO(Guid id, Person person, string telefone = "", string celular = "")
+        public ContatoDTO(Guid id, Person person, string email, string telefone = "", string celular = "")
         {
             Id = id;
             Telefone = telefone;
             Celular = celular;
+            Email = email;
             Pessoa = PessoaDTO.MontarDTO(person);
         }
 
         public static ContatoDTO MontarDTO(Contact contact)
-            => new ContatoDTO(contact.Id, contact.Pessoa, contact.Telefone, contact.Celular);
+            => new ContatoDTO(contact.Id, contact.Pessoa, contact.Email, contact.Telefone, contact.Celular);
 
     }
 }

@@ -5,18 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.RLB.Domain.Entity
 {
-    [Table("Cadastro.Contatos")]
     public class Contact : EntityBase
     {
-        [DisplayName("Telefone Fixo")]
-        [MaxLength(12)]
         public string Telefone { get; set; }
-        [DisplayName("Telefone Celular")]
-        [MaxLength(13)]
         public string Celular { get; set; }
-        [ForeignKey("Pessoa")]
         public Guid PessoaId { get; set; }
         public virtual Person Pessoa { get; set; }
+
+        public string Email { get; set; }
     }
    
 }

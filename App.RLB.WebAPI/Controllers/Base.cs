@@ -19,11 +19,9 @@ namespace App.RLB.WebAPI.Controllers
         where EntidadeDTO : DTOBase
     {
         readonly protected IAppBase<Entidade, EntidadeDTO> app;
-        readonly protected IRepositoryBase<Entidade> repository;
-        public Base(IAppBase<Entidade, EntidadeDTO> app, IRepositoryBase<Entidade> repositoryBase)
+        public Base(IAppBase<Entidade, EntidadeDTO> app)
         {
             this.app = app;
-            this.repository = repositoryBase;
         }
 
         [HttpPost]

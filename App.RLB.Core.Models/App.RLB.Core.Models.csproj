@@ -10,12 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\App.RLB.Domain.Core.Shared\App.RLB.Domain.Core.Shared.csproj" />
     <ProjectReference Include="..\App.RLB.Domain\App.RLB.Domain.csproj" />
   </ItemGroup>
 

@@ -1,13 +1,11 @@
 ﻿using App.RLB.Domain.Entity;
-using App.RLB.Domain.Interface.Repositories;
+using App.RLB.Domain.Interface;
 using App.RLB.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.RLB.Infra.Data.Repository
 {
@@ -22,21 +20,21 @@ namespace App.RLB.Infra.Data.Repository
 
         public IEnumerable<Entidade> All => contexto.Set<Entidade>().AsQueryable();
 
-        public Entidade Add(Entidade entity)
+        public Entidade Insert(Entidade entity)
         {
             contexto.InitialTransaction();
             var entityFormad = contexto.Set<Entidade>().Add(entity).Entity;
             contexto.SendChanges();
             return (entityFormad);
         }
-        public void Remove(Entidade entity)
+        public void Delete(Entidade entity)
         {
             contexto.InitialTransaction();
             contexto.Set<Entidade>().Remove(entity);
             contexto.SendChanges();
         }
 
-        public Entidade Edit(Entidade entity)
+        public Entidade Update(Entidade entity)
         {
             contexto.InitialTransaction();
             var entityFormad = contexto.Set<Entidade>().Update(entity).Entity;
@@ -55,9 +53,9 @@ namespace App.RLB.Infra.Data.Repository
 
 
 
-        public IQueryable<Entidade> Get(Expression<Func<Entidade, bool>> where)
+        public IEnumerable<Entidade> GetMany(Expression<Func<Entidade, bool>> where)
         {
-            return contexto.Set<Entidade>().AsQueryable().Where(where);
+            return contexto.Set<Entidade>().AsQueryable().Where(where).AsEnumerable();
         }
 
         public Entidade GetByKey(params object[] key)

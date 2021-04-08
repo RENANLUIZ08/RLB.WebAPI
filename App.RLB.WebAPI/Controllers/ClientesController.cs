@@ -1,6 +1,7 @@
 ﻿using App.RLB.Application.DTO;
 using App.RLB.Application.Interfaces;
 using App.RLB.Domain.Entity;
+using App.RLB.Domain.Interface;
 using App.RLB.Domain.Interface.Repositories;
 using App.RLB.Domain.Services;
 using App.RLB.WebAPI.Controllers;
@@ -18,9 +19,8 @@ namespace App.RLB.WebAPI.Models
     public class ClientesController : Base<Client, ClienteDTO>
     {
         protected readonly ClienteService clienteService;
-        public ClientesController(IAppBase<Client, ClienteDTO> app, IRepositoryBase<Client> repositoryBase) : base(app, repositoryBase)
+        public ClientesController(IAppBase<Client, ClienteDTO> app) : base(app)
         {
-            clienteService = new ClienteService(;
         }
 
         [HttpPost]
@@ -31,14 +31,6 @@ namespace App.RLB.WebAPI.Models
         {
             try
             {
-                this.repository.
-
-                serviceBase.All
-                if (dto.Pessoa.Fisica != null)
-                { serviceBase.ValidarClienteExistente(dto.Pessoa.Fisica.Cpf, null); }
-                if (dto.Pessoa.Juridica != null)
-                { ClienteService.ValidarClienteExistente(dto.Pessoa.Juridica.Cnpj, null); }
-
                 var uri = Url.Action("GetByKey", new { Id = dto.Id });
                 return new CreatedResult(uri, app.Insert(dto));
             }

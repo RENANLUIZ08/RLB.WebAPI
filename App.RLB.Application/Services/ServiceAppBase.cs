@@ -1,5 +1,5 @@
-﻿using App.RLB.Application.DTO;
-using App.RLB.Application.Interfaces;
+﻿using App.RLB.Application.Interfaces;
+using App.RLB.Domain.Core.Shared.DTO;
 using App.RLB.Domain.Entity;
 using App.RLB.Domain.Interface.Repositories;
 using AutoMapper;
@@ -37,12 +37,12 @@ namespace App.RLB.Application.Services
 
         public void Delete(EntidadeDTO entityDTO)
         {
-            service.Delete(iMapper.Map<Entidade>(entityDTO));
+            service.Remove(iMapper.Map<Entidade>(entityDTO));
         }
 
         public IQueryable<EntidadeDTO> Get(Expression<Func<EntidadeDTO, bool>> where)
         {
-            return iMapper.Map<IQueryable<EntidadeDTO>>(service.Get(iMapper.Map<Expression<Func<Entidade, bool>>>(where)));
+            return iMapper.Map<IQueryable<EntidadeDTO>>(service.GetMany(iMapper.Map<Expression<Func<Entidade, bool>>>(where)));
         }
 
         public EntidadeDTO GetByKey(params object[] key)
@@ -62,12 +62,12 @@ namespace App.RLB.Application.Services
 
         public EntidadeDTO Insert(EntidadeDTO entityDTO)
         {
-            return iMapper.Map<EntidadeDTO>(service.Insert(iMapper.Map<Entidade>(entityDTO)));
+            return iMapper.Map<EntidadeDTO>(service.Add(iMapper.Map<Entidade>(entityDTO)));
         }
 
         public EntidadeDTO Update(EntidadeDTO entityDTO)
         {
-            return iMapper.Map<EntidadeDTO>(service.Update(iMapper.Map<Entidade>(entityDTO)));
+            return iMapper.Map<EntidadeDTO>(service.Edit(iMapper.Map<Entidade>(entityDTO)));
         }
     }
 

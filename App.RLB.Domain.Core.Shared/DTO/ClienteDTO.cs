@@ -1,8 +1,7 @@
-﻿using App.RLB.Application.DTO;
+﻿
 using App.RLB.Domain.Entity;
-using System;
 
-namespace App.RLB.Application.DTO
+namespace App.RLB.Domain.Core.Shared.DTO
 {
     public class ClienteDTO : DTOBase
     {

@@ -1,4 +1,4 @@
-﻿namespace App.RLB.Application.DTO
+﻿namespace App.RLB.Domain.Core.Shared.DTO
 {
     public class LoginDTO
     {

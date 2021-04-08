@@ -1,13 +1,8 @@
-﻿using App.RLB.Application.DTO;
+﻿using App.RLB.Domain.Core.Shared.DTO;
 using App.RLB.Domain.Entity;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace App.RLB.Application
+namespace App.RLB.Application.AutoMapper
 {
     public class MappingEntity : Profile
     {

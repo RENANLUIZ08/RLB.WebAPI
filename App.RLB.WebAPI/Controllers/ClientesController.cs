@@ -1,11 +1,8 @@
-﻿using App.RLB.Application.DTO;
-using App.RLB.Application.Interfaces;
+﻿using App.RLB.Application.Interfaces;
+using App.RLB.Domain.Core.Shared.DTO;
 using App.RLB.Domain.Entity;
-using App.RLB.Domain.Interface;
-using App.RLB.Domain.Interface.Repositories;
 using App.RLB.Domain.Services;
 using App.RLB.WebAPI.Controllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

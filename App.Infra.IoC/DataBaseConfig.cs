@@ -8,7 +8,7 @@ namespace App.Infra.IoC
 {
     public static class DataBaseConfig
     {
-        public static void AddDataBaseConfiguration(IServiceCollection services, IConfiguration configuration)
+        public static void AddDataBaseConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<Contexto>(options =>
             options.UseSqlServer(configuration.GetConnectionString("hml")));

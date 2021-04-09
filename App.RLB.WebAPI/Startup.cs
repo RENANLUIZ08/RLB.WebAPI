@@ -1,14 +1,12 @@
 using App.Infra.IoC;
 using App.RLB.Infra.Data.Context;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using FluentValidation.AspNetCore;
-using App.RLB.Domain.Validations.Commands;
-using App.RLB.Domain.Validations;
 
 namespace RLB.WebAPI
 {
@@ -23,15 +21,19 @@ namespace RLB.WebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Contexto>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("hml")));
+            services.AddControllers();
 
-            InjectorDependencyConfig.AddDependencyInjectionConfig(services);
-            SwaggerConfig.AddSwaggerDoc(services);
+            //services.AddJwtConfiguration(Configuration);
 
-            services.AddControllers().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<PersonValidation>());            
-        
-        
+            services.AddFluentValidatorConfiguration();
+
+            services.AddAutoMapperConfiguration();
+
+            services.AddDataBaseConfiguration(Configuration);
+
+            services.AddDependencyInjectionConfig();
+
+            services.AddSwaggerConfiguration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,12 +42,17 @@ namespace RLB.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                SwaggerConfig.UseSwaggerConfiguration(app);
             }
+
+            app.UseDataBaseConfiguration();
+
+            app.UseSwaggerConfiguration();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseJtwConfiguration();
 
             //app.UseAuthorization();
 

@@ -8,7 +8,7 @@ namespace App.Infra.IoC
 {
     public static class SwaggerConfig
     {
-        public static void AddSwaggerDoc(IServiceCollection services)
+        public static void AddSwaggerConfiguration(this IServiceCollection services)
         {
             //swagger
             services.AddSwaggerGen(c =>
@@ -56,7 +56,7 @@ namespace App.Infra.IoC
             });
         }
 
-        public static void UseSwaggerConfiguration(IApplicationBuilder app)
+        public static void UseSwaggerConfiguration(this IApplicationBuilder app)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>

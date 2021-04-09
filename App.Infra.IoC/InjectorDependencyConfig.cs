@@ -12,9 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Infra.IoC
 {
-    public class InjectorDependencyConfig
+    public static class InjectorDependencyConfig
     {
-        public static void AddDependencyInjectionConfig(IServiceCollection services)
+        public static void AddDependencyInjectionConfig(this IServiceCollection services)
         {
             #region Application
             services.AddScoped(typeof(IAppBase<,>), typeof(ServiceAppBase<,>));

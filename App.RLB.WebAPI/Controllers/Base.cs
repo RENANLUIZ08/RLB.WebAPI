@@ -1,14 +1,8 @@
-﻿using App.RLB.Application.DTO;
-using App.RLB.Application.Interfaces;
+﻿using App.RLB.Application.Interfaces;
+using App.RLB.Domain.Core.Shared.DTO;
 using App.RLB.Domain.Entity;
-using App.RLB.Domain.Interface.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace App.RLB.WebAPI.Controllers
 {

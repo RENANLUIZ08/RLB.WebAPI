@@ -1,5 +1,4 @@
-﻿using App.RLB.Core.Shared.Validations;
-using App.RLB.Domain.Entity;
+﻿using App.RLB.Domain.Entity;
 using App.RLB.Domain.Interface.Repositories;
 using System;
 using System.Collections.Generic;

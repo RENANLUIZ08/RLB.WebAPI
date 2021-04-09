@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace App.RLB.Domain.Core.Shared.Validations
 {
-    public class CommandPessoaDTO : AbstractValidator<PessoaDTO>
+    public class PessoaDTOValidation : AbstractValidator<PessoaDTO>
     {
         #region Variables
         protected List<string> errosEntityToBase = null;
@@ -36,7 +36,7 @@ namespace App.RLB.Domain.Core.Shared.Validations
             RuleFor(p => p.Juridica.NomeFantasia)
                 .MaximumLength(100).WithMessage("O Nome do proprietário deve possuir no máximo 100 caracteres.");
         }
-        protected void ValidadorCNPJ()
+        protected void ValidatorCNPJ()
         {
             RuleFor(p => p.Juridica.Cnpj)
                 .NotEmpty().WithMessage($"Por favor, preencha o CNPJ.")
@@ -97,7 +97,7 @@ namespace App.RLB.Domain.Core.Shared.Validations
             RuleFor(p => p.Fisica.DataNascimento)
                 .Must(IdadeMinima).WithMessage("Não é permitido cadastro para menores de 18 Anos.");
         }
-        protected void ValidadorCPF()
+        protected void ValidatorCPF()
         {
             RuleFor(p => p.Fisica.Cpf)
                 .NotEmpty().WithMessage($"Por favor, preencha o CPF.")
@@ -164,7 +164,7 @@ namespace App.RLB.Domain.Core.Shared.Validations
         }
         #endregion
 
-        #region Validacoes Enderecos
+        #region Validacoes Contatos
         protected void ValidatorContatos()
         {
             //RuleForEach(p => p.Contatos).SetValidator(new CommandNewAddress());

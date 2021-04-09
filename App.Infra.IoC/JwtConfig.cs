@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Builder;
 
 namespace App.Infra.IoC
 {
-    public class JwtConfig
+    public static class JwtConfig
     {
-        public static void AddJwtConfiguration(IServiceCollection services, IConfiguration configuration)
+        public static void AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             //services.AddSingleton<IJwtService, JwtService>();
 
@@ -35,7 +35,7 @@ namespace App.Infra.IoC
                 };
             });
         }
-        public static void UseJtwConfiguration(IApplicationBuilder app)
+        public static void UseJtwConfiguration(this IApplicationBuilder app)
         {
             app.UseAuthentication();
             app.UseAuthentication();

@@ -1,28 +1,25 @@
-﻿using App.RLB.Application;
-using App.RLB.Application.Interfaces;
-using App.RLB.Application.Services;
-using App.RLB.Domain.Interface;
-using App.RLB.Domain.Interface.Repositories;
-using App.RLB.Domain.Interface.Services;
-using App.RLB.Domain.Services;
-using App.RLB.Infra.Data.Repository;
+﻿using App.RLB.Domain.Core.Shared.Validations.Commands;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace App.Infra.IoC
 {
-    public class FluentValidatorConfig
+    public static class FluentValidatorConfig
     {
-        public static void AddFluentValidatorConfiguration(IServiceCollection services)
+        public static void AddFluentValidatorConfiguration(this IServiceCollection services)
         {
             services.AddControllers()
                 .AddFluentValidation(p =>
             {
-                p.RegisterValidatorsFromAssemblyContaining<CommandNewPessoa>();
-                p.RegisterValidatorsFromAssemblyContaining<CommandUpdatePessoa>();
-                p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoa>();
+                p.RegisterValidatorsFromAssemblyContaining<CommandNewPessoaFisica>();
+                p.RegisterValidatorsFromAssemblyContaining<CommandUpdatePessoaFisica>();
+                p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoaFisica>();
 
-                p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoa>();
+                p.RegisterValidatorsFromAssemblyContaining<CommandNewPessoaJuridica>();
+                p.RegisterValidatorsFromAssemblyContaining<CommandUpdatePessoaJuridica>();
+                p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoaJuridica>();
+
                 p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
             });
         }

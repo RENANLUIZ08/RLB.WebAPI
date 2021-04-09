@@ -5,9 +5,9 @@ using System.Globalization;
 
 namespace App.Infra.IoC
 {
-    public class AutoMapperConfig
+    public static class AutoMapperConfig
     {
-        public static void AddDependencyInjectionConfig(IServiceCollection services)
+        public static void AddAutoMapperConfiguration(this IServiceCollection services)
         {
             services.AddControllers().AddFluentValidation(p =>
             {

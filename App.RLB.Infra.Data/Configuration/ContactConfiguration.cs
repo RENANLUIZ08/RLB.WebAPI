@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace App.RLB.Infra.Data.Configuration
 {
-    public class PersonPhysicalConfiguration : IEntityTypeConfiguration<PhysicalPerson>
+    public class ContactConfiguration : IEntityTypeConfiguration<Contact>
     {
-        public void Configure(EntityTypeBuilder<PhysicalPerson> builder)
+        public void Configure(EntityTypeBuilder<Contact> builder)
         {
             builder.Property(c => c.Id).IsRequired();
-            builder.Property(c => c.Nome)
-                .IsRequired()
-                .HasMaxLength(100)
-                .HasColumnType("varchar(100)");
+            builder.Property(c => c.PessoaId).IsRequired();
 
-            builder.Property(c => c.Cpf).IsRequired().HasColumnType("varchar(14)")
-                .HasMaxLength(14);
+            builder.Property(c => c.Email)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnType("varchar(50)");
+
         }
 
     }

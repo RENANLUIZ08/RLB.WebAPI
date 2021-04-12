@@ -9,11 +9,13 @@ namespace App.Infra.IoC
     {
         public static void AddAutoMapperConfiguration(this IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(p =>
-            {
-                p.RegisterValidatorsFromAssemblyContaining<MappingEntity>();
-                p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
-            });
+            //services.AddControllers().AddFluentValidation(p =>
+            //{
+            //    p.RegisterValidatorsFromAssemblyContaining<MappingEntity>();
+            //    p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
+            //});
+
+            services.AddAutoMapper(x => x.AddProfile(new MappingEntity()));
         }
     }
 }

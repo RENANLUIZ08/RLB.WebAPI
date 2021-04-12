@@ -12,6 +12,10 @@ namespace App.Infra.IoC
             services.AddControllers()
                 .AddFluentValidation(p =>
             {
+                p.RegisterValidatorsFromAssemblyContaining<CommandNewCliente>();
+                p.RegisterValidatorsFromAssemblyContaining<CommandUpdateCliente>();
+                p.RegisterValidatorsFromAssemblyContaining<CommandDeleteCliente>();
+
                 p.RegisterValidatorsFromAssemblyContaining<CommandNewPessoaFisica>();
                 p.RegisterValidatorsFromAssemblyContaining<CommandUpdatePessoaFisica>();
                 p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoaFisica>();

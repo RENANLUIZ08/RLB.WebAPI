@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 
 namespace App.RLB.Domain.Core.Shared.DTO
 {
-    public class DTOBase : Command
+    public class DTOBase
     {
         public Guid Id { get; set; }
-
-        public override bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,19 +1,19 @@
 ﻿
 using App.RLB.Domain.Entity;
 
-namespace App.RLB.Domain.Core.Shared.DTO
+namespace App.RLB.Domain.Core.Shared.DTO.ClienteDTO
 {
-    public class ClienteDTO : DTOBase
+    public class NovoClienteDTO
     {
         public PessoaDTO Pessoa { get; set; }
-        public ClienteDTO()
+        public NovoClienteDTO()
         {
 
         }
 
-        public static ClienteDTO MontarDTO(Client model)
+        public static NovoClienteDTO MontarDTO(Client model)
         {
-            return new ClienteDTO()
+            return new NovoClienteDTO()
             {
                 Id = model.Id,
                 Pessoa = PessoaDTO.MontarDTO(model.Person)

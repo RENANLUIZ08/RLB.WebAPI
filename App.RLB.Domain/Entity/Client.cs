@@ -7,5 +7,6 @@ namespace App.RLB.Domain.Entity
     {
         public Guid PessoaId { get; set; }
         public virtual Person Person { get; set; }
+
     }
 }

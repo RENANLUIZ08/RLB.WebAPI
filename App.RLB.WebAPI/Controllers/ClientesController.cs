@@ -1,5 +1,4 @@
 ﻿using App.RLB.Application.Interfaces;
-using App.RLB.Domain.Core.Shared.DTO;
 using App.RLB.Domain.Entity;
 using App.RLB.Domain.Services;
 using App.RLB.WebAPI.Controllers;
@@ -24,7 +23,7 @@ namespace App.RLB.WebAPI.Models
         [SwaggerOperation(Summary = "Cadastro de Cliente", Description = "EndPoint de Cadastro de Clientes")]
         [SwaggerResponse(statusCode: StatusCodes.Status201Created, description: "Cadastro Inserido com sucesso.")]
         [SwaggerResponse(statusCode: StatusCodes.Status400BadRequest, description: "Verifique os dados enviados na requisicao e tente novamente.")]
-        public override IActionResult Insert([FromBody] ClienteDTO dto)
+        public override IActionResult Insert(ClienteDTO dto)
         {
             try
             {
@@ -42,7 +41,7 @@ namespace App.RLB.WebAPI.Models
         [SwaggerResponse(statusCode: StatusCodes.Status200OK, description: "Cadastro Atualizado com sucesso.")]
         [SwaggerResponse(statusCode: StatusCodes.Status400BadRequest, description: "Verifique os dados enviados na requisicao e tente novamente.")]
 
-        public override IActionResult Update([FromBody] ClienteDTO dto)
+        public override IActionResult Update(ClienteDTO dto)
         {
             try
             {

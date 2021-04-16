@@ -1,4 +1,5 @@
-﻿using App.RLB.Domain.Core.Shared.Validations.Commands;
+﻿using App.RLB.Domain.Core.Shared.Validations;
+using App.RLB.Domain.Core.Shared.Validations.Commands;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
@@ -12,17 +13,17 @@ namespace App.Infra.IoC
             services.AddControllers()
                 .AddFluentValidation(p =>
             {
-                p.RegisterValidatorsFromAssemblyContaining<CommandNewCliente>();
-                p.RegisterValidatorsFromAssemblyContaining<CommandUpdateCliente>();
-                p.RegisterValidatorsFromAssemblyContaining<CommandDeleteCliente>();
+                p.RegisterValidatorsFromAssemblyContaining<NewClienteDTOValidator>();
+                //p.RegisterValidatorsFromAssemblyContaining<CommandUpdateCliente>();
+                //p.RegisterValidatorsFromAssemblyContaining<CommandDeleteCliente>();
 
-                p.RegisterValidatorsFromAssemblyContaining<CommandNewPessoaFisica>();
-                p.RegisterValidatorsFromAssemblyContaining<CommandUpdatePessoaFisica>();
-                p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoaFisica>();
+                //p.RegisterValidatorsFromAssemblyContaining<CommandNewPessoaFisica>();
+                //p.RegisterValidatorsFromAssemblyContaining<CommandUpdatePessoaFisica>();
+                //p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoaFisica>();
 
-                p.RegisterValidatorsFromAssemblyContaining<CommandNewPessoaJuridica>();
-                p.RegisterValidatorsFromAssemblyContaining<CommandUpdatePessoaJuridica>();
-                p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoaJuridica>();
+                //p.RegisterValidatorsFromAssemblyContaining<CommandNewPessoaJuridica>();
+                //p.RegisterValidatorsFromAssemblyContaining<CommandUpdatePessoaJuridica>();
+                //p.RegisterValidatorsFromAssemblyContaining<CommandDeletePessoaJuridica>();
 
                 p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
             });

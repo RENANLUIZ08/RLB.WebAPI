@@ -1,4 +1,4 @@
-﻿using App.RLB.Application.AutoMapper;
+﻿using App.RLB.Domain.Core.Shared.Mappings;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
@@ -9,13 +9,9 @@ namespace App.Infra.IoC
     {
         public static void AddAutoMapperConfiguration(this IServiceCollection services)
         {
-            //services.AddControllers().AddFluentValidation(p =>
-            //{
-            //    p.RegisterValidatorsFromAssemblyContaining<MappingEntity>();
-            //    p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
-            //});
-
-            services.AddAutoMapper(x => x.AddProfile(new MappingEntity()));
+            services.AddAutoMapper(
+                typeof(NewClientMappingProfile));
+            //services.AddAutoMapper(x => x.AddProfile(new MappingEntity()));
         }
     }
 }
